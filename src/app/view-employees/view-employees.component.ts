@@ -59,6 +59,7 @@ export class ViewEmployeesComponent implements AfterViewInit, OnInit, OnDestroy 
               maximumFractionDigits: 2,
               style: 'currency',
               currency: 'USD',
+              //@ts-ignore
               notation: 'compact',
               compactDisplay: "short"
             })
