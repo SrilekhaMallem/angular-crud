@@ -86,6 +86,7 @@ export class ViewEmployeesComponent implements AfterViewInit, OnInit, OnDestroy 
   onAdd(flag: String) {
     if (flag === 'add') {
       const initialState = {
+        list:[],
         title: 'Add Form'
       };
       this.modalRef = this.modalService.show(NewEmployeeComponent, { initialState });

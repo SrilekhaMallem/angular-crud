@@ -10,61 +10,57 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./new-employee.component.scss']
 })
 export class NewEmployeeComponent implements OnInit {
-  submitted = false;
   addForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
     private router: Router,
-    private employeeService : EmployeeService,
+    private employeeService: EmployeeService,
     public bsModalRef: BsModalRef,
-    private toastrService : ToastrService) { }
+    private toastrService: ToastrService) { }
   title: string;
   list: any[] = [];
   ngOnInit(): void {
-    
+
     this.addForm = this.formBuilder.group({
       id: [],
       employee_name: ['', Validators.required],
       employee_age: ['', Validators.required],
-      employee_salary: ['', Validators.required],     
+      employee_salary: ['', Validators.required],
     });
-    if(this.list[0].data){
-      this.employeeService.getEmployeeById(this.list[0].data).subscribe((res :any) =>{
+    if (this.list[0]) {
+      this.employeeService.getEmployeeById(this.list[0].data).subscribe((res: any) => {
         this.addForm.patchValue({
           id: res.data.id,
           employee_name: res.data.employee_name,
-          employee_age : res.data.employee_age,
-          employee_salary : res.data.employee_salary,
+          employee_age: res.data.employee_age,
+          employee_salary: res.data.employee_salary,
         });
-     });
-  }
+      });
+    }
   }
   onSubmit() {
-    this.submitted = true;
-    if(this.title === 'Add Form'){
-    this.employeeService.createEmployee(this.addForm.value)
-      .subscribe( (data : any)=> {
-        if(data.status === "success"){
-          this.toastrService.success('Added succesfully!');
+    if (this.title === 'Add Form') {
+      this.employeeService.createEmployee(this.addForm.value)
+        .subscribe((data: any) => {
+          if (data.status === "success") {
+            this.toastrService.success('Added succesfully!');
+            this.bsModalRef.content.onClose.next(true);
+          }
+        });
+    }
+    else {
+      this.employeeService.updateEmployee(this.list[0].data, this.addForm.value).subscribe((res: any) => {
+        if (res.status === "success") {
+          this.toastrService.success('Updated succesfully!');
           this.bsModalRef.content.onClose.next(true);
-        }      
+        }
       });
+    }
+    this.router.navigate(['/employees']);
+    this.bsModalRef.hide();
   }
-  else{
-    this.employeeService.updateEmployee(this.list[0].data, this.addForm.value).subscribe(( res: any)=>{
-      if(res.status === "success"){
-      res.data[this.list[0].data] = res.data;
-        this.toastrService.success('Updated succesfully!');
-        this.bsModalRef.content.onClose.next(true);
-      }
-    });
+  onClose() {
+    this.bsModalRef.hide();
+    this.addForm.reset();
+    this.bsModalRef.content.onClose.next(true);
   }
-  this.router.navigate(['/employees']);
-  this.bsModalRef.hide();
-}
-  onClose(){
-  this.bsModalRef.hide();
-   this.submitted = false;
-   this.addForm.reset();
-   this.bsModalRef.content.onClose.next(true);
-}
 }
