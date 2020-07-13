@@ -25,3 +25,18 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+#Features implemented :
+      1. Add Record Implemented
+            Click on add employee
+      2. Edit Record Implemented
+            Click on edit icon
+      3. Delete record implemented
+            Click on delete icon
+      4. Sorting added to the grid
+            How to use: Click on the header to sort.
+      5. Formatting Implemented.
+            displays amount formatted as $13.5K etc in table.
+      6. Searching the datatable
+            start typing in search bar.  
+            
