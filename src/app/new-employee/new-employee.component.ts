@@ -58,9 +58,4 @@ export class NewEmployeeComponent implements OnInit {
     this.router.navigate(['/employees']);
     this.bsModalRef.hide();
   }
-  onClose() {
-    this.bsModalRef.hide();
-    this.addForm.reset();
-    this.bsModalRef.content.onClose.next(true);
-  }
 }

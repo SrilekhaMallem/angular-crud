@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="bsModalRef.hide()">Close</button>
         <button type="submit" class="btn btn-success" [disabled]="!addForm.valid">Save</button>
     </div>
 </form>
